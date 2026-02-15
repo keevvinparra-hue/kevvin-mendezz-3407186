@@ -76,11 +76,17 @@ const bank = {
   //   { platform: '', url: '', icon: '' }
   // ],
 
+links: [
+  { name: 'Webbank', url: 'https://payflow.com' },
+  { name: 'bank', url: 'https://linkedin.com/company/payflow' },
+  { name: 'bankGitHub', url: 'https://github.com/payflow' }
+],
+
   // Estadísticas o contadores (adapta a tu dominio)
   stats: {
      totaluser: 30000,
     activeuser: 2500,
-    totaltransacion: 2500000,  // renombra según tu dominio
+    totaltransaction: 2500000,  // renombra según tu dominio
    }
 };
 
@@ -108,6 +114,26 @@ const bank = {
 // const toast = document.getElementById('toast');
 // const toastMessage = document.getElementById('toast-message');
 
+const entityName = document.getElementById('userName');
+const entityTitle = document.getElementById('userTitle');
+const entityLocation = document.getElementById('userLocation');
+const entityDescription = document.getElementById('userBio');
+const userEmail = document.getElementById('userEmail');
+const userPhone = document.getElementById('userPhone');
+
+const itemsList = document.getElementById('skillsList');
+
+const statsContainer = document.getElementById('stats');
+
+const themeToggle = document.getElementById('themeToggle');
+const copyBtn = document.getElementById('copyEmailBtn');
+const toggleItemsBtn = document.getElementById('toggleSkills');
+
+const toast = document.getElementById('toast');
+const toastMessage = document.getElementById('toastMessage');
+
+
+
 // ============================================
 // TODO 3: Renderizar información básica
 // ============================================
@@ -116,14 +142,33 @@ const bank = {
 // 2. Actualice los elementos del DOM con template literals
 // 3. Muestre la información principal de tu entidad
 
-const renderBasicInfo = () => {
+//const renderBasicInfo = () => {
   // TODO: Usa destructuring para extraer las propiedades
   // const { name, description, contact: { email, phone } } = entityData;
 
   // TODO: Actualiza los elementos del DOM usando template literals
   // entityName.textContent = name;
   // entityDescription.innerHTML = `<p>${description}</p>`;
+//};
+   
+const renderBasicInfo = () => {
+
+  const { 
+    name, 
+    description, 
+    contact: { email, phone, location } 
+  } = bank;
+
+  entityName.textContent = `${name}`;
+  entityTitle.textContent = `Financial Technology Services`;
+  entityLocation.textContent = `📍 ${location}`;
+  entityDescription.innerHTML = `<p>${description}</p>`;
+  userEmail.textContent = `${email}`;
+  userPhone.textContent = `${phone}`;
 };
+
+renderBasicInfo();
+
 
 // ============================================
 // TODO 4: Renderizar lista de elementos
@@ -146,7 +191,9 @@ const renderBasicInfo = () => {
 //   </div>
 // </div>
 
-const renderItems = (showAll = false) => {
+
+
+//const renderItems = (showAll = false) => {
   // TODO: Extrae el array de items de entityData
   // const { items } = entityData;
 
@@ -171,8 +218,32 @@ const renderItems = (showAll = false) => {
 
   // TODO: Actualiza el contenedor de items
   // itemsList.innerHTML = itemsHtml;
-};
+//};
 
+const renderItems = (showAll = false) => {
+
+  const { items } = bank;
+
+  const itemsToShow = showAll ? items : items.slice(0, 4);
+
+  const itemsHtml = itemsToShow.map(item => {
+    const { name, level } = item;
+    return `
+      <div class="item">
+        <div class="item-name">${name}</div>
+        <div class="item-level">
+          <span>${level}%</span>
+          <div class="level-bar">
+            <div class="level-fill" style="width: ${level}%"></div>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  itemsList.innerHTML = itemsHtml;
+};
+renderItems();
 // ============================================
 // TODO 5: Renderizar enlaces/referencias
 // ============================================
@@ -182,11 +253,30 @@ const renderItems = (showAll = false) => {
 // 3. Use template literals para generar etiquetas anchor
 // 4. Actualice el contenedor de links
 
-const renderLinks = () => {
+//const renderLinks = () => {
   // TODO: Implementa el renderizado de enlaces
   // Si tu dominio no tiene enlaces, adapta esta función para
   // mostrar otra información relevante (categorías, tags, etc.)
+//};
+
+const renderLinks = () => {
+
+  const { links } = bank;
+
+  const linksHTML = links.map(({ name, url }) => `
+    <a href="${url}" target="_blank" class="social-link">
+      ${name}
+    </a>
+  `).join('');
+
+  socialLinks.innerHTML = linksHTML;
 };
+
+renderLinks();
+
+renderBasicInfo();
+renderItems();
+renderLinks();
 
 // ============================================
 // TODO 6: Calcular y renderizar estadísticas
@@ -204,7 +294,7 @@ const renderLinks = () => {
 //   <span class="stat-label">{label}</span>
 // </div>
 
-const renderStats = () => {
+//const renderStats = () => {
   // TODO: Extrae las estadísticas de entityData
   // const { stats } = entityData;
 
@@ -226,7 +316,27 @@ const renderStats = () => {
 
   // TODO: Actualiza el contenedor
   // statsContainer.innerHTML = statsHtml;
+//};
+
+const renderStats = () => {
+  const { stats } = bank;
+
+  const statsArray = [
+    { label: 'Usuarios Totales', value: stats.totaluser },
+    { label: 'Usuarios Activos', value: stats.activeuser },
+    { label: 'Transacciones', value: stats.totaltransaction }
+  ];
+
+  const statsHtml = statsArray.map(stat => `
+    <div class="stat-item">
+      <span class="stat-value">${stat.value}</span>
+      <span class="stat-label">${stat.label}</span>
+    </div>
+  `).join('');
+
+  statsContainer.innerHTML = statsHtml;
 };
+renderStats();
 
 // ============================================
 // TODO 7: Funcionalidad de cambio de tema
@@ -242,7 +352,7 @@ const renderStats = () => {
 // 1. Obtener el tema guardado de localStorage
 // 2. Aplicarlo si existe
 
-const toggleTheme = () => {
+//const toggleTheme = () => {
   // TODO: Implementa el cambio de tema
   // const currentTheme = document.documentElement.dataset.theme;
   // const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -253,14 +363,30 @@ const toggleTheme = () => {
 
   // TODO: (Opcional) Guarda en localStorage
   // localStorage.setItem('theme', newTheme);
-};
+//};
 
-const loadTheme = () => {
+//const loadTheme = () => {
   // TODO: Carga el tema desde localStorage
   // const savedTheme = localStorage.getItem('theme') ?? 'light';
   // document.documentElement.dataset.theme = savedTheme;
   // themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+//};
+
+const toggleTheme = () => {
+  const currentTheme = document.documentElement.dataset.theme;
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  document.documentElement.dataset.theme = newTheme;
+  themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+  localStorage.setItem('theme', newTheme);
 };
+
+
+const loadTheme = () => {
+  const savedTheme = localStorage.getItem('theme') ?? 'light';
+  document.documentElement.dataset.theme = savedTheme;
+  themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+};
+loadTheme();
 
 // ============================================
 // TODO 8: Funcionalidad de copiar información
@@ -271,7 +397,7 @@ const loadTheme = () => {
 // 3. Muestre una notificación toast de éxito
 // 4. Use la función auxiliar showToast
 
-const copyInfo = () => {
+//const copyInfo = () => {
   // TODO: Construye el texto a copiar
   // const { name, description, contact } = entityData;
   // const infoText = `
@@ -285,17 +411,42 @@ const copyInfo = () => {
 
   // TODO: Muestra notificación
   // showToast('¡Información copiada al portapapeles!');
-};
+//};
 
 // Función auxiliar para mostrar notificaciones toast
-const showToast = message => {
+//const showToast = message => {
   // toastMessage.textContent = message;
   // toast.classList.add('show');
 
   // setTimeout(() => {
   //   toast.classList.remove('show');
   // }, 3000);
+//};
+
+const copyInfo = () => {
+  const { name, description, contact } = entityData;
+
+  const infoText = `
+${name}
+${description}
+Contacto: ${contact?.email ?? 'No disponible'}
+`.trim();
+
+  navigator.clipboard.writeText(infoText);
+  showToast('¡Información copiada al portapapeles!');
 };
+
+copyInfo ();
+const showToast = message => {
+  toastMessage.textContent = message;
+  toast.classList.add('show');
+
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 3000);
+};
+setTimeout ();
+
 
 // ============================================
 // TODO 9: Funcionalidad de mostrar/ocultar items
@@ -306,14 +457,25 @@ const showToast = message => {
 // 3. Llame a renderItems con el parámetro apropiado
 // 4. Actualice el texto del botón ("Mostrar más" / "Mostrar menos")
 
-let showingAllItems = false;
+//let showingAllItems = false;
 
-const handleToggleItems = () => {
+//const handleToggleItems = () => {
   // TODO: Implementa la lógica de toggle
   // showingAllItems = !showingAllItems;
   // renderItems(showingAllItems);
   // toggleItemsBtn.textContent = showingAllItems ? 'Mostrar menos' : 'Mostrar más';
+//};
+
+let showingAllItems = false;
+
+const handleToggleItems = () => {
+  showingAllItems = !showingAllItems;
+  renderItems(showingAllItems);
+  toggleItemsBtn.textContent = showingAllItems ? 'Mostrar menos' : 'Mostrar más';
 };
+
+toggleItemsBtn.addEventListener('click', handleToggleItems);
+
 
 // ============================================
 // TODO 10: Event Listeners
@@ -327,6 +489,10 @@ const handleToggleItems = () => {
 // themeToggle.addEventListener('click', toggleTheme);
 // copyBtn.addEventListener('click', copyInfo);
 // toggleItemsBtn.addEventListener('click', handleToggleItems);
+themeToggle.addEventListener('click', toggleTheme);
+copyBtn.addEventListener('click', copyInfo);
+toggleItemsBtn.addEventListener('click', handleToggleItems);
+
 
 // ============================================
 // TODO 11: Inicializar la aplicación
@@ -339,7 +505,7 @@ const handleToggleItems = () => {
 // 5. Llame a renderStats()
 // 6. Muestre un mensaje de éxito en la consola
 
-const init = () => {
+//const init = () => {
   // TODO: Inicializa todos los componentes
   // loadTheme();
   // renderBasicInfo();
@@ -347,10 +513,21 @@ const init = () => {
   // renderLinks();
   // renderStats();
   // console.log('✅ Aplicación inicializada correctamente');
-};
+//};
 
 // Ejecuta init cuando el DOM esté listo
-init();
+//init();
+const init = () => {
+  loadTheme();
+  renderBasicInfo();
+  renderItems();
+  renderLinks();
+  renderStats();
+  console.log('✅ Aplicación inicializada correctamente');
+};
+
+document.addEventListener('DOMContentLoaded', init);
+
 
 // ============================================
 // CHECKLIST DE VERIFICACIÓN
