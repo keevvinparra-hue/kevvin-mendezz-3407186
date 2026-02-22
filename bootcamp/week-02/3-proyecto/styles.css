@@ -3,19 +3,19 @@
    =================================== */
 
 :root {
-  --color-primary: #3b82f6;
-  --color-secondary: #8b5cf6;
-  --color-success: #10b981;
+  --color-primary: #020c1b;
+  --color-secondary: #7d0000;
+  --color-success: #931134;
   --color-warning: #f59e0b;
   --color-danger: #ef4444;
   --color-dark: #1f2937;
-  --color-gray: #6b7280;
-  --color-light: #f3f4f6;
-  --color-white: #ffffff;
+  --color-gray: #000000;
+  --color-light: #000000;
+  --color-white: #d3c2c2;
 
-  --priority-high: #ef4444;
-  --priority-medium: #f59e0b;
-  --priority-low: #10b981;
+  --priority-high: #ff0000;
+  --priority-medium: #ffa200;
+  --priority-low: #000000;
 
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -172,7 +172,7 @@ body {
 }
 
 .btn-primary:hover {
-  background: #2563eb;
+  background: #00e6e6;
   transform: translateY(-1px);
   box-shadow: var(--shadow-md);
 }
@@ -183,7 +183,7 @@ body {
 }
 
 .btn-secondary:hover {
-  background: #4b5563;
+  background: #fcfdfe;
 }
 
 .btn-outline {

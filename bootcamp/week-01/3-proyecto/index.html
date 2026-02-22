@@ -5,9 +5,140 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Interactive Business Card</title>
   <link rel="stylesheet" href="styles.css">
+<!-- style-->
+<style>
+.item { margin-bottom: 15px; }
+.item-name { font-weight: bold; }
+.item-category { font-style: italic; color: #555; } 
+.level-bar { background: #eee; height: 10px; width: 100%; } 
+.level-fill { background: #4caf50; height: 10px; } </style>
+
+
+</style>
 </head>
 <body>
+
   <div class="container">
+<!-- djdjjdjdjdjddjdjdjdjdjjdjdjdj-->
+<head>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // tu código JS aquí
+const bank = { 
+name: "payflow",
+description: "Admininistacion de dinero/transferencias",
+contact: { email: "serviciosfinancieros@payflow.com",
+phone: "3104863989",
+location: "medellin, colombia"
+ }
+   };
+   // Referencias a los elementos del DOM
+const entityName = document.getElementById('userName');
+const entityTitle = document.getElementById('userTitle');
+const entityLocation = document.getElementById('userLocation');
+const entityDescription = document.getElementById('userBio');
+const userEmail = document.getElementById('userEmail');
+const userPhone = document.getElementById('userPhone');
+const socialLinks = document.getElementById('socialLinks');
+
+
+const statsContainer = document.getElementById('statsContainer');
+
+const themeToggle = document.getElementById('themeToggle');
+const copyBtn = document.getElementById('copyEmailBtn');
+const toggleItemsBtn = document.getElementById('toggleSkills');
+
+const toast = document.getElementById('toast');
+const toastMessage = document.getElementById('toastMessage');
+// Función para renderizar la información
+const renderBasicInfo = () => {
+
+  const { 
+    name, 
+    description, 
+    contact: { email, phone, location } 
+  } = bank;
+
+  entityName.textContent = `${name}`;
+  entityTitle.textContent = `Financial Technology Services`;
+  entityLocation.textContent = `📍 ${location}`;
+  entityDescription.innerHTML = `<p>${description}</p>`;
+  userEmail.textContent = `${email}`;
+  userPhone.textContent = `${phone}`;
+};
+
+renderBasicInfo();
+
+items: [
+{ name: 'payment transfers', level: 90, category: 'payment services' },
+{ name: 'internation transfers', level: 85, category: 'global transfers' }, 
+{ name: 'currency exchange', level: 75, category: 'global markets' }, 
+{ name: 'credit services', level: 70, category: 'financial services' } 
+] 
+ 
+const itemsList = document.getElementById('skillsList');
+const renderItems = (showAll = false) => { 
+  const { items } = bank; 
+  const itemsToShow = showAll ? items : items.slice(0, 4); 
+  const itemsHtml = itemsToShow.map(item => 
+  { const { name, level, category } = item; 
+  return ` 
+  <div class="item"> 
+    <div class="item-name">${name}</div> 
+    <div class="item-category">${category}</div> 
+    <div class="item-level"> 
+      <span>${level}%</span> 
+      <div class="level-bar"> 
+        <div class="level-fill" style="width: ${level}%"></div> 
+        </div> 
+        </div> 
+        </div> 
+        `; 
+      }).join(''); 
+      itemsList.innerHTML = itemsHtml; 
+    }; 
+    renderItems(); 
+    
+
+
+    const renderLinks = () => {
+      const { links } = bank;
+      const linksHTML = links.map(({ name, url }) => ` <a href="${url}" target="_blank" class="social-link"> ${name} </a> `).join('');
+      socialLinks.innerHTML = linksHTML;
+    };
+
+  renderLinks();
+
+    const renderStats = () => {
+      const { stats } = bank;
+
+      const statsArray = [
+        { label: 'Usuarios Totales', value: stats.totaluser },
+        { label: 'Usuarios Activos', value: stats.activeuser },
+        { label: 'Transacciones', value: stats.totaltransaction }
+      ];
+
+      const statsHtml = statsArray.map(stat => ` <div class="stat-item"> <span class="stat-value">${stat.value}</span> <span class="stat-label">${stat.label}</span> </div> `).join('');
+
+      statsContainer.innerHTML = statsHtml;
+    };
+
+    renderStats();
+
+
+    });
+  </script>
+</head>
+<body>
+  <h1 id="entityName"></h1>
+  <h2 id="entityTitle"></h2>
+  <p id="entityLocation"></p>
+  <div id="entityDescription"></div>
+  <p id="userEmail"></p>
+  <p id="userPhone"></p>
+</body>
+
+
 
 
     <!-- Business Card -->
@@ -19,6 +150,7 @@
         </div>
         <div class="header-info">
           <h1 id="userName"></h1>
+          <div id="itemsList"></div>
           <p class="title" id="userTitle">payflow</p>
           <p class="location" id="userLocation">medellin colombia</p>
         </div>

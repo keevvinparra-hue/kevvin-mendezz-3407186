@@ -413,4 +413,26 @@ body {
     top: 0.5rem;
     right: 0.5rem;
   }
+
+.stat-item {
+  display: inline-block;
+  margin: 15px;
+  padding: 10px;
+  border: 1px solid #f80808;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #ff8800;
+}
+
+.stat-label {
+  font-size: 0.9em;
+  color: #0cf637;
+}
+
+
 }

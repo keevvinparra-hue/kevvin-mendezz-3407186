@@ -51,7 +51,7 @@ const bank = {
   // TODO: Agrega las propiedades específicas de tu dominio
 
   // Propiedades básicas (adapta a tu dominio)
-   name: 'payflow',
+   name: 'mastermoney',
    description: 'Admininistacion de dinero/transferencias',
    identifier: 'SANKAMEN', // código, id, número, etc.
 
@@ -78,8 +78,8 @@ const bank = {
 
 links: [
   { name: 'Webbank', url: 'https://payflow.com' },
-  { name: 'bank', url: 'https://linkedin.com/company/payflow' },
-  { name: 'bankGitHub', url: 'https://github.com/payflow' }
+  { name: 'master', url: 'https://linkedin.com/company/monkytranstion' },
+  { name: 'bankGitHub', url: 'https://github.com' }
 ],
 
   // Estadísticas o contadores (adapta a tu dominio)
@@ -131,6 +131,7 @@ const toggleItemsBtn = document.getElementById('toggleSkills');
 
 const toast = document.getElementById('toast');
 const toastMessage = document.getElementById('toastMessage');
+const socialLinks = document.getElementById('socialLinks');
 
 
 
@@ -227,10 +228,11 @@ const renderItems = (showAll = false) => {
   const itemsToShow = showAll ? items : items.slice(0, 4);
 
   const itemsHtml = itemsToShow.map(item => {
-    const { name, level } = item;
+    const { name, level, category } = item;
     return `
       <div class="item">
         <div class="item-name">${name}</div>
+        <div class="item-category">${category}</div>
         <div class="item-level">
           <span>${level}%</span>
           <div class="level-bar">
