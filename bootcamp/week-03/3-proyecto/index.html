@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- TODO: Cambia el título según tu dominio -->
-    <title>📦 Sistema de Gestión | Tu Dominio</title>
+    <title>💳 Sistema de servicios financieros</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -30,24 +30,24 @@
       <!-- Header -->
       <header class="header">
         <!-- TODO: Cambia el título y emoji según tu dominio -->
-        <h1>📦 Sistema de Gestión</h1>
-        <p class="subtitle">Adaptado a tu dominio asignado</p>
+        <h1>💳 Sistema de servicios financieros</h1>
+        <p class="subtitle">Administra cuentas, clientes y operaciones</p>
       </header>
 
       <!-- Navigation Tabs -->
       <nav class="tabs">
         <!-- TODO: Adapta las pestañas a tu dominio -->
         <button class="tab-btn active" data-tab="catalog">
-          📋 Catálogo
+          📂 Productos Financieros
         </button>
         <button class="tab-btn" data-tab="users">
-          👥 Usuarios
+          👥 Clientes
         </button>
         <button class="tab-btn" data-tab="transactions">
-          🔄 Transacciones
+          💸 Operaciones
         </button>
         <button class="tab-btn" data-tab="stats">
-          📊 Estadísticas
+          📊 informes
         </button>
       </nav>
 
@@ -56,12 +56,12 @@
         <!-- Catalog Tab -->
         <section id="catalog" class="tab-panel active">
           <div class="panel-header">
-            <h2>📋 Catálogo de Elementos</h2>
+            <h2>🌐 sistema de servicios </h2>
             <div class="actions">
               <input
                 type="text"
                 id="search-input"
-                placeholder="Buscar por nombre..."
+                placeholder="Busca el servicio 🔎"
               />
               <!-- TODO: Adapta los tipos a tu dominio -->
               <select id="filter-type">
@@ -72,9 +72,9 @@
                   <option value="Star">Estrellas</option>
                   <option value="Satellite">Satélites</option>
                 -->
-                <option value="ItemType1">Tipo 1</option>
-                <option value="ItemType2">Tipo 2</option>
-                <option value="ItemType3">Tipo 3</option>
+                <option value="account">cuentas</option>
+                <option value="loan">prestamos</option>
+                <option value="insurance">seguros</option>
               </select>
               <select id="filter-status">
                 <option value="all">Todos</option>
@@ -82,7 +82,7 @@
                 <option value="inactive">Inactivos</option>
               </select>
               <button id="add-item-btn" class="btn btn-primary">
-                + Agregar
+                Añadir
               </button>
             </div>
           </div>
@@ -98,7 +98,7 @@
         <!-- Users Tab -->
         <section id="users" class="tab-panel">
           <div class="panel-header">
-            <h2>👥 Usuarios del Sistema</h2>
+            <h2>👥 Clientes</h2>
             <div class="actions">
               <input
                 type="text"
@@ -107,9 +107,9 @@
               />
               <!-- TODO: Adapta los roles a tu dominio -->
               <select id="filter-role">
-                <option value="all">Todos los roles</option>
-                <option value="UserRole1">Rol 1</option>
-                <option value="UserRole2">Rol 2</option>
+                <option value="admin">administrador</option>
+                <option value="advisor">asesor financiero</option>
+                <option value="client">cliente</option>
               </select>
               <button id="add-user-btn" class="btn btn-primary">
                 + Agregar Usuario
@@ -135,7 +135,7 @@
         <!-- Stats Tab -->
         <section id="stats" class="tab-panel">
           <div class="panel-header">
-            <h2>📊 Estadísticas del Sistema</h2>
+            <h2>📊 informes</h2>
           </div>
           <div id="stats-container" class="stats-grid">
             <div class="stat-card">
@@ -175,9 +175,9 @@
               <select id="item-type" required>
                 <!-- TODO: Adapta los tipos a tu dominio -->
                 <option value="">Selecciona un tipo</option>
-                <option value="ItemType1">Tipo 1</option>
-                <option value="ItemType2">Tipo 2</option>
-                <option value="ItemType3">Tipo 3</option>
+                <option value="account">Cuenta</option>
+                 <option value="loan">Préstamo</option>
+                <option value="insurance">Seguro</option>
               </select>
             </div>
 
@@ -188,7 +188,7 @@
             </div>
 
             <div class="form-group">
-              <label for="item-location">Ubicación *</label>
+              <label for="item-location">Ubicacion *</label>
               <input type="text" id="item-location" required />
             </div>
 
@@ -221,9 +221,9 @@
             <div class="form-group">
               <label for="user-role">Rol</label>
               <select id="user-role" required>
-                <option value="">Selecciona un rol</option>
-                <option value="UserRole1">Rol 1</option>
-                <option value="UserRole2">Rol 2</option>
+              <option value="admin">administrador</option>
+              <option value="advisor">asesor financiero</option>
+              <option value="client">cliente</option>
               </select>
             </div>
 

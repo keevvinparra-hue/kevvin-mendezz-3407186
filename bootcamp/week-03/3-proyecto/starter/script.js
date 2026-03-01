@@ -1,7 +1,7 @@
 /**
  * ============================================
  * PROYECTO SEMANA 03 - SISTEMA DE GESTIÓN CON POO
- * Archivo inicial para el aprendiz
+ * servicios finacieros fin tech
  * ============================================
  *
  * INSTRUCCIONES:
@@ -47,11 +47,12 @@
 class BaseItem {
   // TODO: Declara los campos privados de tu clase base
   // Estos son los campos mínimos requeridos:
-  // #id;
-  // #name;
-  // #active;
-  // #location;
-  // #dateCreated;
+#id;
+#name;
+#active;
+#location;
+#dateCreated;
+
   //
   // EJEMPLO Planetario - campos adicionales específicos:
   // #magnitude;
@@ -64,11 +65,12 @@ class BaseItem {
    */
   constructor(name, location) {
     // TODO: Inicializa los campos privados
-    // this.#id = crypto.randomUUID();
-    // this.#name = name;
-    // this.#location = location;
-    // this.#active = true;
-    // this.#dateCreated = new Date().toISOString();
+this.#id = crypto.randomUUID();
+this.#name = name;
+this.#location = location;
+this.#active = true;
+this.#dateCreated = new Date().toISOString();
+
   }
 
   // ============================================
@@ -78,39 +80,37 @@ class BaseItem {
   /**
    * Retorna el ID único del elemento
    */
-  get id() {
-    // TODO: Implementa el getter
-    // return this.#id;
+  get id(){ return this.#id
   }
 
   /**
    * Retorna el nombre del elemento
    */
   get name() {
-    // TODO: Implementa el getter
+  return this.#name
   }
 
   /**
    * Retorna si el elemento está activo
    */
-  get isActive() {
-    // TODO: Implementa el getter
+  get isActive() { return this.#active
   }
 
   /**
    * Retorna la ubicación del elemento
    */
-  get location() {
-    // TODO: Implementa el getter
+  get location() { return this.#location
   }
 
   /**
    * Retorna la fecha de creación
    */
-  get dateCreated() {
-    // TODO: Implementa el getter
+  get dateCreated() { return this.#dateCreated
   }
 
+
+  // retornar la taza de interes 
+ 
   // ============================================
   // SETTERS - Modificación controlada con validación
   // ============================================
@@ -121,11 +121,12 @@ class BaseItem {
    */
   set location(value) {
     // TODO: Implementa el setter con validación
-    // if (!value || value.trim() === '') {
-    //   throw new Error('La ubicación no puede estar vacía');
-    // }
-    // this.#location = value.trim();
+if (!value || value.trim() === '') {
+throw new Error('La ubicación no puede estar vacía');
+}
+this.#location = value.trim();
   }
+
 
   // ============================================
   // MÉTODOS DE INSTANCIA
@@ -137,11 +138,11 @@ class BaseItem {
    */
   activate() {
     // TODO: Implementa la activación
-    // if (this.#active) {
-    //   return { success: false, message: 'El elemento ya está activo' };
-    // }
-    // this.#active = true;
-    // return { success: true, message: 'Elemento activado correctamente' };
+if (this.#active) {
+    return { success: false, message: ' ya está activo' };
+  }
+  this.#active = true;
+  return { success: true, message: 'Elemento activado correctamente' };
   }
 
   /**
@@ -150,7 +151,12 @@ class BaseItem {
    */
   deactivate() {
     // TODO: Implementa la desactivación
-  }
+if (!this.#active) { 
+  return { success: false, message: ' ya está inactivo' };
+}
+this.#active = false;
+return { success: true, message: 'Elemento desactivado correctamente' };
+}
 
   /**
    * Método abstracto - DEBE ser sobrescrito en clases hijas
@@ -168,6 +174,8 @@ class BaseItem {
     return this.constructor.name;
   }
 }
+
+
 
 // ============================================
 // TODO 2: CLASES DERIVADAS - Tipos de Elementos
@@ -245,7 +253,143 @@ class BaseItem {
 
 // TODO: Implementa tu tercera clase derivada (Tipo 3)
 // class ItemType3 extends BaseItem { ... }
+class Bank extends BaseItem {
+  #interestRate;
 
+  constructor(name, location, interestRate) {
+    super(name, location); // inicializa lo común en BaseItem
+    this.#interestRate = interestRate;
+  }
+
+  get interestRate() { return this.#interestRate; }
+
+  set interestRate(value) {
+    if (value <= 0) {
+      throw new Error("La tasa de interés debe ser mayor a 0");
+    }
+    this.#interestRate = value;
+  }
+
+  getInfo() {
+    return {
+      id: this.id,
+      type: this.getType(),
+      name: this.name,
+      location: this.location,
+      active: this.isActive,
+      dateCreated: this.dateCreated,
+      interestRate: this.#interestRate
+    };
+  }
+}
+class Account extends BaseItem {
+  #accountNumber;
+  #balance;
+
+  constructor(name, location, accountNumber, balance) {
+    super(name, location);
+    this.#accountNumber = accountNumber;
+    this.#balance = balance;
+  }
+
+  get accountNumber() { return this.#accountNumber; }
+  get balance() { return this.#balance; }
+
+  deposit(amount) {
+    if (amount <= 0) throw new Error("Depósito inválido");
+    this.#balance += amount;
+    return this.#balance;
+  }
+
+  withdraw(amount) {
+    if (amount <= 0) throw new Error("Retiro inválido");
+    if (amount > this.#balance) throw new Error("Fondos insuficientes");
+    this.#balance -= amount;
+    return this.#balance;
+  }
+
+  getInfo() {
+    return {
+      id: this.id,
+      type: this.getType(),
+      name: this.name,
+      location: this.location,
+      active: this.isActive,
+      dateCreated: this.dateCreated,
+      accountNumber: this.#accountNumber,
+      balance: this.#balance
+    };
+  }
+}
+class Loan extends BaseItem {
+  #amount;
+  #interestRate;
+  #termMonths;
+
+  constructor(name, location, amount, interestRate, termMonths) {
+    super(name, location);
+    this.#amount = amount;
+    this.#interestRate = interestRate;
+    this.#termMonths = termMonths;
+  }
+
+  get amount() { return this.#amount; }
+  get interestRate() { return this.#interestRate; }
+  get termMonths() { return this.#termMonths; }
+
+  calculateMonthlyPayment() {
+    const monthlyRate = this.#interestRate / 100 / 12;
+    const numerator = monthlyRate * Math.pow(1 + monthlyRate, this.#termMonths);
+    const denominator = Math.pow(1 + monthlyRate, this.#termMonths) - 1;
+    return (this.#amount * (numerator / denominator)).toFixed(2);
+  }
+
+  getInfo() {
+    return {
+      id: this.id,
+      type: this.getType(),
+      name: this.name,
+      location: this.location,
+      active: this.isActive,
+      dateCreated: this.dateCreated,
+      amount: this.#amount,
+      interestRate: this.#interestRate,
+      termMonths: this.#termMonths,
+      monthlyPayment: this.calculateMonthlyPayment()
+    };
+  }
+}
+class Insurance extends BaseItem {
+  #coverage;
+  #premium;
+
+  constructor(name, location, coverage, premium) {
+    super(name, location);
+    this.#coverage = coverage;
+    this.#premium = premium;
+  }
+
+  get coverage() { return this.#coverage; }
+  get premium() { return this.#premium; }
+
+  set premium(value) {
+    if (value <= 0) throw new Error("La prima debe ser mayor a 0");
+    this.#premium = value;
+  }
+
+  getInfo() {
+    return {
+      id: this.id,
+      type: this.getType(),
+      name: this.name,
+      location: this.location,
+      active: this.isActive,
+      dateCreated: this.dateCreated,
+      coverage: this.#coverage,
+      premium: this.#premium
+    };
+  }
+}
 // ============================================
 // TODO 3: CLASE PERSON - Base para usuarios
 // ============================================
@@ -257,89 +401,96 @@ class BaseItem {
  */
 class Person {
   // TODO: Declara campos privados
-  // #id;
-  // #name;
-  // #email;
-  // #registrationDate;
+#id;
+#name;
+#email;
+#registrationDate;
 
   constructor(name, email) {
     // TODO: Inicializa los campos
-    // this.#id = crypto.randomUUID();
-    // this.#name = name;
-    // this.#email = email;
-    // this.#registrationDate = new Date().toISOString();
+this.#id = crypto.randomUUID()
+this.#name = name;
+this.#email = email;
+this.#registrationDate = new Date().toISOString();
   }
 
   // TODO: Implementa getters
-  get id() {}
-  get name() {}
-  get email() {}
-  get registrationDate() {}
+  get id() {return this.#id}
+  get name() {return this.#name}
+  get email() {return this.#email}
+  get registrationDate() {return this.#registrationDate}
 
   // TODO: Implementa setter con validación de email
   set email(value) {
     // Valida formato de email usando regex
-    // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    // if (!emailRegex.test(value)) {
-    //   throw new Error('Formato de email inválido');
-    // }
-    // this.#email = value;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(value)) {
+    throw new Error('Formato de email inválido');
+     }
+ this.#email = value;
   }
 
   /**
    * Retorna la información básica del usuario
    */
   getInfo() {
-    // return {
-    //   id: this.#id,
-    //   name: this.#name,
-    //   email: this.#email,
-    //   registrationDate: this.#registrationDate
-    // };
+    return {
+    id: this.#id,
+     name: this.#name,
+     email: this.#email,
+     registrationDate: this.#registrationDate
+   };
   }
 }
 
 // ============================================
 // TODO 4: CLASES DE ROLES - Usuarios especializados
 // ============================================
-/**
- * Crea al menos 2 clases que extiendan Person con diferentes roles.
- *
- * EJEMPLO (Planetario - NO asignable):
- *
- * class Visitor extends Person {
- *   #ticketType;
- *   #visitCount;
- *
- *   constructor(name, email, ticketType) {
- *     super(name, email);
- *     this.#ticketType = ticketType;
- *     this.#visitCount = 0;
- *   }
- *
- *   recordVisit() {
- *     this.#visitCount++;
- *   }
- *
- *   get ticketType() { return this.#ticketType; }
- *   get visitCount() { return this.#visitCount; }
- * }
- *
- * class Astronomer extends Person {
- *   #specialty;
- *   #observations;
- *
- *   constructor(name, email, specialty) {
- *     super(name, email);
- *     this.#specialty = specialty;
- *     this.#observations = [];
- *   }
- *
- *   addObservation(observation) {
- *     this.#observations.push(observation);
- *   }
- * }
- */
+
+//Crea al menos 2 clases que extiendan Person con diferentes roles.
+
+ //EJEMPLO (Planetario - NO asignable):
+ 
+ class customer extends Person {
+   #accounts;
+  
+
+  constructor(name, email) {
+  super(name, email);
+  this.#accounts = [];
+  }
+ 
+ addAccount(account)
+ { this.#accounts.push(account); }
+ 
+ get accounts() { return this.#accounts; }
+ getInfo() { 
+  return { 
+    ...super.getInfo(),
+     accounts: this.#accounts.map(acc => acc.getInfo())
+     };
+     }
+ }
+ 
+class Employee extends Person {
+  #role;
+
+  constructor(name, email, role) {
+    super(name, email);
+    this.#role = role;
+  }
+
+  get role() { return this.#role; }
+
+  getInfo() {
+    return {
+      ...super.getInfo(),
+      role: this.#role
+    };
+  }
+}
+
+ 
 
 // TODO: Implementa tu primer rol de usuario
 // class UserRole1 extends Person { ... }
@@ -366,10 +517,10 @@ class MainSystem {
   // TODO: Implementa un static block para configuración
   static {
     // Este bloque se ejecuta cuando la clase se carga
-    // this.VERSION = '1.0.0';
-    // this.MAX_ITEMS = 1000;
-    // this.SYSTEM_NAME = 'Mi Sistema'; // Cambia por tu dominio
-    // console.log(`Sistema ${this.SYSTEM_NAME} v${this.VERSION} cargado`);
+    this.VERSION = '1.0.0';
+    this.MAX_ITEMS = 1000;
+    this.SYSTEM_NAME = 'sistemas fintech'; // Cambia por tu dominio
+    console.log(`Sistema ${this.SYSTEM_NAME} v${this.VERSION} cargado`);
   }
 
   // TODO: Implementa métodos estáticos de utilidad
@@ -379,7 +530,7 @@ class MainSystem {
    * @returns {boolean} Si es válido
    */
   static isValidId(id) {
-    // return typeof id === 'string' && id.length > 0;
+   return typeof id === 'string' && id.length > 0;
   }
 
   /**
@@ -387,7 +538,7 @@ class MainSystem {
    * @returns {string} ID único
    */
   static generateId() {
-    // return crypto.randomUUID();
+    return crypto.randomUUID();
   }
 
   // ============================================
@@ -401,14 +552,14 @@ class MainSystem {
    */
   addItem(item) {
     // TODO: Implementa la adición con validación
-    // if (!(item instanceof BaseItem)) {
-    //   return { success: false, message: 'El item debe ser instancia de BaseItem' };
-    // }
-    // if (this.#items.length >= MainSystem.MAX_ITEMS) {
-    //   return { success: false, message: 'Límite de items alcanzado' };
-    // }
-    // this.#items.push(item);
-    // return { success: true, message: 'Item agregado correctamente', item };
+    if (!(item instanceof BaseItem)) {
+      return { success: false, message: 'El item debe ser instancia de BaseItem' };
+    }
+   if (this.#items.length >= MainSystem.MAX_ITEMS) {
+     return { success: false, message: 'Límite de items alcanzado' };
+   }
+  this.#items.push(item);
+  return { success: true, message: 'Item agregado correctamente', item };
   }
 
   /**
@@ -418,12 +569,12 @@ class MainSystem {
    */
   removeItem(id) {
     // TODO: Implementa la eliminación
-    // const index = this.#items.findIndex(item => item.id === id);
-    // if (index === -1) {
-    //   return { success: false, message: 'Item no encontrado' };
-    // }
-    // const removed = this.#items.splice(index, 1)[0];
-    // return { success: true, message: 'Item eliminado', item: removed };
+    const index = this.#items.findIndex(item => item.id === id);
+    if (index === -1) {
+      return { success: false, message: 'Item no encontrado' };
+    }
+    const removed = this.#items.splice(index, 1)[0];
+  return { success: true, message: 'Item eliminado', item: removed };
   }
 
   /**
@@ -433,7 +584,7 @@ class MainSystem {
    */
   findItem(id) {
     // TODO: Implementa la búsqueda
-    // return this.#items.find(item => item.id === id) ?? null;
+  return this.#items.find(item => item.id === id) ?? null;
   }
 
   /**
@@ -442,7 +593,7 @@ class MainSystem {
    */
   getAllItems() {
     // Retorna copia para evitar mutación directa
-    // return [...this.#items];
+   return [...this.#items];
   }
 
   // ============================================
@@ -456,10 +607,10 @@ class MainSystem {
    */
   searchByName(query) {
     // TODO: Implementa búsqueda case-insensitive
-    // const searchTerm = query.toLowerCase();
-    // return this.#items.filter(item =>
-    //   item.name.toLowerCase().includes(searchTerm)
-    // );
+   const searchTerm = query.toLowerCase();
+   return this.#items.filter(item =>
+      item.name.toLowerCase().includes(searchTerm)
+ );
   }
 
   /**
@@ -469,7 +620,7 @@ class MainSystem {
    */
   filterByType(type) {
     // TODO: Implementa el filtro por tipo
-    // return this.#items.filter(item => item.getType() === type);
+  return this.#items.filter(item => item.getType() === type);
   }
 
   /**
@@ -479,7 +630,7 @@ class MainSystem {
    */
   filterByStatus(active) {
     // TODO: Implementa el filtro por estado
-    // return this.#items.filter(item => item.isActive === active);
+    return this.#items.filter(item => item.isActive === active);
   }
 
   // ============================================
@@ -492,25 +643,25 @@ class MainSystem {
    */
   getStats() {
     // TODO: Implementa el cálculo de estadísticas usando reduce
-    // const total = this.#items.length;
-    // const active = this.#items.filter(item => item.isActive).length;
-    // const inactive = total - active;
+    const total = this.#items.length;
+    const active = this.#items.filter(item => item.isActive).length;
+    const inactive = total - active;
     //
     // // Contar por tipo usando reduce
-    // const byType = this.#items.reduce((acc, item) => {
-    //   const type = item.getType();
-    //   acc[type] = (acc[type] ?? 0) + 1;
-    //   return acc;
-    // }, {});
+    const byType = this.#items.reduce((acc, item) => {
+     const type = item.getType();
+   acc[type] = (acc[type] ?? 0) + 1;
+    return acc;
+   }, {});
     //
-    // return {
-    //   total,
-    //   active,
-    //   inactive,
-    //   byType,
-    //   users: this.#users.length
-    // };
-  }
+  return {
+  total,
+  active,
+  inactive,
+  byType,
+  users:this.#users.length
+   };
+}
 
   // ============================================
   // MÉTODOS PARA USUARIOS
@@ -522,11 +673,11 @@ class MainSystem {
    */
   addUser(user) {
     // TODO: Implementa el registro de usuario
-    // if (!(user instanceof Person)) {
-    //   return { success: false, message: 'Debe ser instancia de Person' };
-    // }
-    // this.#users.push(user);
-    // return { success: true, message: 'Usuario registrado' };
+    if (!(user instanceof Person)) {
+   return { success: false, message: 'Debe ser instancia de Person' };
+  }
+   this.#users.push(user);
+ return { success: true, message: 'Usuario registrado' };
   }
 
   /**
@@ -535,11 +686,11 @@ class MainSystem {
    * @returns {Person|null} Usuario encontrado o null
    */
   findUserByEmail(email) {
-    // return this.#users.find(user => user.email === email) ?? null;
+  return this.#users.find(user => user.email === email) ?? null;
   }
 
   getAllUsers() {
-    // return [...this.#users];
+  return [...this.#users];
   }
 }
 
@@ -548,26 +699,34 @@ class MainSystem {
 // ============================================
 
 // Crea la instancia principal del sistema
-// const system = new MainSystem();
+const system = new MainSystem();
 
 // TODO: Crea algunos elementos de prueba de diferentes tipos
 // EJEMPLO (Planetario):
-// const jupiter = new Planet('Júpiter', 'Sistema Solar', 'gaseoso', 95, true);
-// const sol = new Star('Sol', 'Centro del Sistema', 'enana amarilla', 4600);
-// system.addItem(jupiter);
-// system.addItem(sol);
+const banco = new Bank('Banco central', 'Bogota', 5.5);
+const prestamos = new Loan('prestamoos hipotecario', 'sucursal sur ', 20000, 8.5, 240);
+const cuenta = new Account ("cuenta de ahorros ", "sucursal norte", "789-012", 1000)
+const seguro = new Insurance("seguros de vida", "sucursal centro", "cobertura total", 150)
+system.addItem(banco);
+ system.addItem(prestamos); 
+ system.addItem(cuenta); 
+ system.addItem(seguro);
 
 // ============================================
 // TODO 7: REFERENCIAS AL DOM
 // ============================================
 
 // TODO: Obtén referencias a los elementos del DOM
-// const itemForm = document.getElementById('item-form');
-// const itemList = document.getElementById('item-list');
-// const statsContainer = document.getElementById('stats');
-// const filterType = document.getElementById('filter-type');
-// const filterStatus = document.getElementById('filter-status');
-// const searchInput = document.getElementById('search-input');
+ const itemForm = document.getElementById('item-form');
+ const itemList = document.getElementById('item-list');
+ const statsContainer = document.getElementById('stats');
+ const filterType = document.getElementById('filter-type');
+ const filterStatus = document.getElementById('filter-status');
+ const searchInput = document.getElementById('search-input');
+
+// ============================================
+// TODO 8: FUNCIONES DE RENDERIZADO
+// ============================================
 
 // ============================================
 // TODO 8: FUNCIONES DE RENDERIZADO
@@ -579,26 +738,25 @@ class MainSystem {
  * @returns {string} HTML del elemento
  */
 const renderItem = item => {
-  // TODO: Implementa usando template literals
-  // const info = item.getInfo();
-  // return `
-  //   <div class="item ${item.isActive ? '' : 'inactive'}" data-id="${item.id}">
-  //     <div class="item-header">
-  //       <h3>${item.name}</h3>
-  //       <span class="badge">${item.getType()}</span>
-  //     </div>
-  //     <div class="item-details">
-  //       <p>Ubicación: ${item.location}</p>
-  //       <p>Estado: ${item.isActive ? 'Activo' : 'Inactivo'}</p>
-  //     </div>
-  //     <div class="item-actions">
-  //       <button class="btn-toggle" data-id="${item.id}">
-  //         ${item.isActive ? 'Desactivar' : 'Activar'}
-  //       </button>
-  //       <button class="btn-delete" data-id="${item.id}">Eliminar</button>
-  //     </div>
-  //   </div>
-  // `;
+  const info = item.getInfo();
+  return `
+    <div class="item ${item.isActive ? '' : 'inactive'}" data-id="${item.id}">
+      <div class="item-header">
+        <h3>${item.name}</h3>
+        <span class="badge">${item.getType()}</span>
+      </div>
+      <div class="item-details">
+        <p>Ubicación: ${item.location}</p>
+        <p>Estado: ${item.isActive ? 'Activo' : 'Inactivo'}</p>
+      </div>
+      <div class="item-actions">
+        <button class="btn-toggle" data-id="${item.id}">
+          ${item.isActive ? 'Desactivar' : 'Activar'}
+        </button>
+        <button class="btn-delete" data-id="${item.id}">Eliminar</button>
+      </div>
+    </div>
+  `;
 };
 
 /**
@@ -606,12 +764,11 @@ const renderItem = item => {
  * @param {Array} items - Array de elementos
  */
 const renderItems = (items = []) => {
-  // TODO: Implementa el renderizado de la lista
-  // if (items.length === 0) {
-  //   itemList.innerHTML = '<p class="empty">No hay elementos</p>';
-  //   return;
-  // }
-  // itemList.innerHTML = items.map(renderItem).join('');
+  if (items.length === 0) {
+    itemList.innerHTML = '<p class="empty">📭 No hay elementos en el catálogo</p>';
+    return;
+  }
+  itemList.innerHTML = items.map(renderItem).join('');
 };
 
 /**
@@ -619,13 +776,20 @@ const renderItems = (items = []) => {
  * @param {Object} stats - Objeto de estadísticas
  */
 const renderStats = stats => {
-  // TODO: Implementa el renderizado de estadísticas
-  // statsContainer.innerHTML = `
-  //   <div class="stat">Total: ${stats.total}</div>
-  //   <div class="stat">Activos: ${stats.active}</div>
-  //   <div class="stat">Inactivos: ${stats.inactive}</div>
-  // `;
+  statsContainer.innerHTML = `
+    <div class="stat">Total: ${stats.total}</div>
+    <div class="stat">Activos: ${stats.active}</div>
+    <div class="stat">Inactivos: ${stats.inactive}</div>
+    <div class="stat">Usuarios: ${stats.users}</div>
+  `;
+
+  // Renderizado detallado por tipo
+  const details = Object.entries(stats.byType)
+    .map(([type, count]) => `<p>${type}: ${count}</p>`)
+    .join('');
+  document.getElementById('stats-details').innerHTML = details;
 };
+
 
 // ============================================
 // TODO 9: EVENT HANDLERS
@@ -636,21 +800,50 @@ const renderStats = stats => {
  */
 const handleFormSubmit = e => {
   // TODO: Implementa la creación de nuevos elementos
-  // e.preventDefault();
+   e.preventDefault();
   // Obtén valores del formulario
+  const type = document.getElementById('item-type').value;
+  const name = document.getElementById('item-name').value;
+  const location = document.getElementById('item-location').value;
+  let newItem;
   // Crea instancia de la clase correcta según el tipo seleccionado
+  if (type === 'account') { 
+  const accountNumber = prompt("Número de cuenta:");
+  const balance = parseFloat(prompt("Saldo inicial:"));
+  newItem = new Account(name, location, accountNumber, balance); 
+ } else if (type === 'loan') {
+  const amount = parseFloat(prompt("Monto del préstamo:"));
+  const interestRate = parseFloat(prompt("Tasa de interés:"));
+  const termMonths = parseInt(prompt("Plazo en meses:"), 10);
+  newItem = new Loan(name, location, amount, interestRate, termMonths);
+  } else if (type === 'insurance') {
+  const coverage = prompt("Cobertura:");
+  const premium = parseFloat(prompt("Prima:")); 
+  newItem = new Insurance(name, location, coverage, premium);
+ }
   // Agrega al sistema
-  // Re-renderiza
+ if (newItem){
+   system.addItem(newItem);
+     renderItems(system.getAllItems()); 
+     renderStats(system.getStats());
+      itemForm.reset();
+}
 };
-
 /**
  * Maneja cambios en los filtros
  */
 const handleFilterChange = () => {
   // TODO: Implementa el filtrado
-  // let filtered = system.getAllItems();
+let filtered = system.getAllItems();
   // Aplica filtros según los valores de los selectores
-  // renderItems(filtered);
+  const typeValue = filterType.value;
+   if (typeValue !== 'all') {
+     filtered = filtered.filter(item => item.getType().toLowerCase() === typeValue);
+     }
+ const searchTerm = searchInput.value.toLowerCase(); 
+ if (searchTerm) {
+   filtered = filtered.filter(item => item.name.toLowerCase().includes(searchTerm));
+   } renderItems(filtered);
 };
 
 /**
@@ -658,36 +851,35 @@ const handleFilterChange = () => {
  */
 const handleItemAction = e => {
   // TODO: Implementa usando event delegation
-  // const target = e.target;
-  // const itemId = target.dataset.id;
-  // if (!itemId) return;
+  const target = e.target;
+  const itemId = target.dataset.id;
+   if (!itemId) return;
   //
-  // if (target.classList.contains('btn-toggle')) {
-  //   const item = system.findItem(itemId);
-  //   if (item.isActive) item.deactivate();
-  //   else item.activate();
-  // }
+ if (target.classList.contains('btn-toggle')) {
+   const item = system.findItem(itemId);
+   if (item.isActive) item.deactivate();
+   else item.activate();
+   }
   //
-  // if (target.classList.contains('btn-delete')) {
-  //   if (confirm('¿Eliminar este elemento?')) {
-  //     system.removeItem(itemId);
-  //   }
-  // }
+ if (target.classList.contains('btn-delete')) {
+   if (confirm('¿Eliminar este elemento?')) {
+     system.removeItem(itemId);
+     }
+   }
   //
-  // handleFilterChange();
-  // renderStats(system.getStats());
+ handleFilterChange();
+  renderStats(system.getStats());
 };
 
 // ============================================
 // TODO 10: EVENT LISTENERS
 // ============================================
 
-// TODO: Adjunta los event listeners
-// itemForm.addEventListener('submit', handleFormSubmit);
-// filterType.addEventListener('change', handleFilterChange);
-// filterStatus.addEventListener('change', handleFilterChange);
-// searchInput.addEventListener('input', handleFilterChange);
-// itemList.addEventListener('click', handleItemAction);
+itemForm.addEventListener('submit', handleFormSubmit);
+filterType.addEventListener('change', handleFilterChange);
+filterStatus.addEventListener('change', handleFilterChange); 
+searchInput.addEventListener('input', handleFilterChange); 
+itemList.addEventListener('click', handleItemAction);
 
 // ============================================
 // TODO 11: INICIALIZACIÓN
@@ -698,9 +890,9 @@ const handleItemAction = e => {
  */
 const init = () => {
   // TODO: Implementa la inicialización
-  // renderItems(system.getAllItems());
-  // renderStats(system.getStats());
-  // console.log('✅ Sistema inicializado correctamente');
+  renderItems(system.getAllItems());
+  renderStats(system.getStats());
+  console.log('✅ Sistema inicializado correctamente');
 };
 
 // Ejecutar cuando el DOM esté listo
