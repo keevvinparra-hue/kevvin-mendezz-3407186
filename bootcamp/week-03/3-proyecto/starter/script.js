@@ -1,0 +1,926 @@
+/**
+ * ============================================
+ * PROYECTO SEMANA 03 - SISTEMA DE GESTIÓN CON POO
+ * servicios finacieros fin tech
+ * ============================================
+ *
+ * INSTRUCCIONES:
+ * 1. Lee el README.md del proyecto para entender los requisitos
+ * 2. Adapta TODAS las clases a tu dominio asignado por el instructor
+ * 3. Usa características ES2023 de POO:
+ *    - Clases con constructor
+ *    - Campos privados (#)
+ *    - Getters y setters
+ *    - Herencia (extends, super)
+ *    - Métodos estáticos
+ *    - Static blocks
+ * 4. Los comentarios deben estar en español
+ * 5. La nomenclatura técnica (variables, funciones, clases) en inglés
+ *
+ * NOTA IMPORTANTE:
+ * Este archivo es una PLANTILLA GENÉRICA.
+ * Debes adaptarlo completamente a tu dominio asignado.
+ * NO copies la implementación de otro compañero.
+ *
+ * EJEMPLO DE REFERENCIA (NO es un dominio asignable):
+ * Planetario - Gestión de cuerpos celestes y observaciones
+ *
+ * ============================================
+ */
+
+// ============================================
+// TODO 1: CLASE BASE - BaseItem
+// ============================================
+/**
+ * Clase base abstracta para todos los elementos de tu dominio.
+ * Implementa encapsulación con campos privados.
+ *
+ * EJEMPLO (Planetario - NO asignable):
+ * class CelestialBody { ... }
+ *
+ * Debes renombrar esta clase según tu dominio:
+ * - Biblioteca → LibraryItem
+ * - Farmacia → Medicine
+ * - Gimnasio → Equipment
+ * - etc.
+ */
+class BaseItem {
+  // TODO: Declara los campos privados de tu clase base
+  // Estos son los campos mínimos requeridos:
+#id;
+#name;
+#active;
+#location;
+#dateCreated;
+
+  //
+  // EJEMPLO Planetario - campos adicionales específicos:
+  // #magnitude;
+  // #distance;
+
+  /**
+   * Constructor de la clase base
+   * @param {string} name - Nombre del elemento
+   * @param {string} location - Ubicación del elemento
+   */
+  constructor(name, location) {
+    // TODO: Inicializa los campos privados
+this.#id = crypto.randomUUID();
+this.#name = name;
+this.#location = location;
+this.#active = true;
+this.#dateCreated = new Date().toISOString();
+
+  }
+
+  // ============================================
+  // GETTERS - Acceso controlado a propiedades
+  // ============================================
+
+  /**
+   * Retorna el ID único del elemento
+   */
+  get id(){ return this.#id
+  }
+
+  /**
+   * Retorna el nombre del elemento
+   */
+  get name() {
+  return this.#name
+  }
+
+  /**
+   * Retorna si el elemento está activo
+   */
+  get isActive() { return this.#active
+  }
+
+  /**
+   * Retorna la ubicación del elemento
+   */
+  get location() { return this.#location
+  }
+
+  /**
+   * Retorna la fecha de creación
+   */
+  get dateCreated() { return this.#dateCreated
+  }
+
+
+  // retornar la taza de interes 
+ 
+  // ============================================
+  // SETTERS - Modificación controlada con validación
+  // ============================================
+
+  /**
+   * Establece la ubicación con validación
+   * @param {string} value - Nueva ubicación
+   */
+  set location(value) {
+    // TODO: Implementa el setter con validación
+if (!value || value.trim() === '') {
+throw new Error('La ubicación no puede estar vacía');
+}
+this.#location = value.trim();
+  }
+
+
+  // ============================================
+  // MÉTODOS DE INSTANCIA
+  // ============================================
+
+  /**
+   * Activa el elemento
+   * @returns {Object} Resultado de la operación
+   */
+  activate() {
+    // TODO: Implementa la activación
+if (this.#active) {
+    return { success: false, message: ' ya está activo' };
+  }
+  this.#active = true;
+  return { success: true, message: 'Elemento activado correctamente' };
+  }
+
+  /**
+   * Desactiva el elemento
+   * @returns {Object} Resultado de la operación
+   */
+  deactivate() {
+    // TODO: Implementa la desactivación
+if (!this.#active) { 
+  return { success: false, message: ' ya está inactivo' };
+}
+this.#active = false;
+return { success: true, message: 'Elemento desactivado correctamente' };
+}
+
+  /**
+   * Método abstracto - DEBE ser sobrescrito en clases hijas
+   * @returns {Object} Información del elemento
+   */
+  getInfo() {
+    throw new Error('El método getInfo() debe ser implementado en la clase hija');
+  }
+
+  /**
+   * Retorna el tipo de elemento (nombre de la clase)
+   * @returns {string} Nombre del constructor
+   */
+  getType() {
+    return this.constructor.name;
+  }
+}
+
+
+
+// ============================================
+// TODO 2: CLASES DERIVADAS - Tipos de Elementos
+// ============================================
+/**
+ * Crea al menos 3 clases que extiendan tu clase base.
+ * Cada clase debe tener:
+ * - Campos privados adicionales específicos
+ * - Constructor que llame a super()
+ * - Getters para las nuevas propiedades
+ * - Implementación de getInfo()
+ *
+ * EJEMPLO (Planetario - NO asignable):
+ *
+ * class Planet extends CelestialBody {
+ *   #type;      // Rocoso, gaseoso, etc.
+ *   #moons;     // Número de lunas
+ *   #hasRings;  // Tiene anillos
+ *
+ *   constructor(name, location, type, moons, hasRings) {
+ *     super(name, location);
+ *     this.#type = type;
+ *     this.#moons = moons;
+ *     this.#hasRings = hasRings;
+ *   }
+ *
+ *   get type() { return this.#type; }
+ *   get moons() { return this.#moons; }
+ *   get hasRings() { return this.#hasRings; }
+ *
+ *   getInfo() {
+ *     return {
+ *       id: this.id,
+ *       name: this.name,
+ *       location: this.location,
+ *       type: this.#type,
+ *       moons: this.#moons,
+ *       hasRings: this.#hasRings,
+ *       active: this.isActive
+ *     };
+ *   }
+ * }
+ */
+
+// TODO: Implementa tu primera clase derivada (Tipo 1)
+// class ItemType1 extends BaseItem {
+//   #specificProp1;
+//   #specificProp2;
+//
+//   constructor(name, location, prop1, prop2) {
+//     super(name, location);
+//     this.#specificProp1 = prop1;
+//     this.#specificProp2 = prop2;
+//   }
+//
+//   // Getters
+//   get specificProp1() { return this.#specificProp1; }
+//   get specificProp2() { return this.#specificProp2; }
+//
+//   // Implementación de getInfo
+//   getInfo() {
+//     return {
+//       id: this.id,
+//       name: this.name,
+//       type: this.getType(),
+//       prop1: this.#specificProp1,
+//       prop2: this.#specificProp2,
+//       active: this.isActive
+//     };
+//   }
+// }
+
+// TODO: Implementa tu segunda clase derivada (Tipo 2)
+// class ItemType2 extends BaseItem { ... }
+
+// TODO: Implementa tu tercera clase derivada (Tipo 3)
+// class ItemType3 extends BaseItem { ... }
+class Bank extends BaseItem {
+  #interestRate;
+
+  constructor(name, location, interestRate) {
+    super(name, location); // inicializa lo común en BaseItem
+    this.#interestRate = interestRate;
+  }
+
+  get interestRate() { return this.#interestRate; }
+
+  set interestRate(value) {
+    if (value <= 0) {
+      throw new Error("La tasa de interés debe ser mayor a 0");
+    }
+    this.#interestRate = value;
+  }
+
+  getInfo() {
+    return {
+      id: this.id,
+      type: this.getType(),
+      name: this.name,
+      location: this.location,
+      active: this.isActive,
+      dateCreated: this.dateCreated,
+      interestRate: this.#interestRate
+    };
+  }
+}
+class Account extends BaseItem {
+  #accountNumber;
+  #balance;
+
+  constructor(name, location, accountNumber, balance) {
+    super(name, location);
+    this.#accountNumber = accountNumber;
+    this.#balance = balance;
+  }
+
+  get accountNumber() { return this.#accountNumber; }
+  get balance() { return this.#balance; }
+
+  deposit(amount) {
+    if (amount <= 0) throw new Error("Depósito inválido");
+    this.#balance += amount;
+    return this.#balance;
+  }
+
+  withdraw(amount) {
+    if (amount <= 0) throw new Error("Retiro inválido");
+    if (amount > this.#balance) throw new Error("Fondos insuficientes");
+    this.#balance -= amount;
+    return this.#balance;
+  }
+
+  getInfo() {
+    return {
+      id: this.id,
+      type: this.getType(),
+      name: this.name,
+      location: this.location,
+      active: this.isActive,
+      dateCreated: this.dateCreated,
+      accountNumber: this.#accountNumber,
+      balance: this.#balance
+    };
+  }
+}
+class Loan extends BaseItem {
+  #amount;
+  #interestRate;
+  #termMonths;
+
+  constructor(name, location, amount, interestRate, termMonths) {
+    super(name, location);
+    this.#amount = amount;
+    this.#interestRate = interestRate;
+    this.#termMonths = termMonths;
+  }
+
+  get amount() { return this.#amount; }
+  get interestRate() { return this.#interestRate; }
+  get termMonths() { return this.#termMonths; }
+
+  calculateMonthlyPayment() {
+    const monthlyRate = this.#interestRate / 100 / 12;
+    const numerator = monthlyRate * Math.pow(1 + monthlyRate, this.#termMonths);
+    const denominator = Math.pow(1 + monthlyRate, this.#termMonths) - 1;
+    return (this.#amount * (numerator / denominator)).toFixed(2);
+  }
+
+  getInfo() {
+    return {
+      id: this.id,
+      type: this.getType(),
+      name: this.name,
+      location: this.location,
+      active: this.isActive,
+      dateCreated: this.dateCreated,
+      amount: this.#amount,
+      interestRate: this.#interestRate,
+      termMonths: this.#termMonths,
+      monthlyPayment: this.calculateMonthlyPayment()
+    };
+  }
+}
+class Insurance extends BaseItem {
+  #coverage;
+  #premium;
+
+  constructor(name, location, coverage, premium) {
+    super(name, location);
+    this.#coverage = coverage;
+    this.#premium = premium;
+  }
+
+  get coverage() { return this.#coverage; }
+  get premium() { return this.#premium; }
+
+  set premium(value) {
+    if (value <= 0) throw new Error("La prima debe ser mayor a 0");
+    this.#premium = value;
+  }
+
+  getInfo() {
+    return {
+      id: this.id,
+      type: this.getType(),
+      name: this.name,
+      location: this.location,
+      active: this.isActive,
+      dateCreated: this.dateCreated,
+      coverage: this.#coverage,
+      premium: this.#premium
+    };
+  }
+}
+// ============================================
+// TODO 3: CLASE PERSON - Base para usuarios
+// ============================================
+/**
+ * Clase base para todos los usuarios del sistema.
+ *
+ * EJEMPLO (Planetario - NO asignable):
+ * Person → Visitor (visitante), Astronomer (astrónomo)
+ */
+class Person {
+  // TODO: Declara campos privados
+#id;
+#name;
+#email;
+#registrationDate;
+
+  constructor(name, email) {
+    // TODO: Inicializa los campos
+this.#id = crypto.randomUUID()
+this.#name = name;
+this.#email = email;
+this.#registrationDate = new Date().toISOString();
+  }
+
+  // TODO: Implementa getters
+  get id() {return this.#id}
+  get name() {return this.#name}
+  get email() {return this.#email}
+  get registrationDate() {return this.#registrationDate}
+
+  // TODO: Implementa setter con validación de email
+  set email(value) {
+    // Valida formato de email usando regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(value)) {
+    throw new Error('Formato de email inválido');
+     }
+ this.#email = value;
+  }
+
+  /**
+   * Retorna la información básica del usuario
+   */
+  getInfo() {
+    return {
+    id: this.#id,
+     name: this.#name,
+     email: this.#email,
+     registrationDate: this.#registrationDate
+   };
+  }
+}
+
+// ============================================
+// TODO 4: CLASES DE ROLES - Usuarios especializados
+// ============================================
+
+//Crea al menos 2 clases que extiendan Person con diferentes roles.
+
+ //EJEMPLO (Planetario - NO asignable):
+ 
+ class customer extends Person {
+   #accounts;
+  
+
+  constructor(name, email) {
+  super(name, email);
+  this.#accounts = [];
+  }
+ 
+ addAccount(account)
+ { this.#accounts.push(account); }
+ 
+ get accounts() { return this.#accounts; }
+ getInfo() { 
+  return { 
+    ...super.getInfo(),
+     accounts: this.#accounts.map(acc => acc.getInfo())
+     };
+     }
+ }
+ 
+class Employee extends Person {
+  #role;
+
+  constructor(name, email, role) {
+    super(name, email);
+    this.#role = role;
+  }
+
+  get role() { return this.#role; }
+
+  getInfo() {
+    return {
+      ...super.getInfo(),
+      role: this.#role
+    };
+  }
+}
+
+ 
+
+// TODO: Implementa tu primer rol de usuario
+// class UserRole1 extends Person { ... }
+
+// TODO: Implementa tu segundo rol de usuario
+// class UserRole2 extends Person { ... }
+
+// ============================================
+// TODO 5: CLASE PRINCIPAL DEL SISTEMA
+// ============================================
+/**
+ * Clase principal que gestiona todos los elementos y usuarios.
+ * Utiliza static blocks para configuración inicial.
+ *
+ * EJEMPLO (Planetario - NO asignable):
+ * class Observatory { ... }
+ */
+class MainSystem {
+  // Campos privados para almacenar datos
+  #items = [];
+  #users = [];
+  #transactions = [];
+
+  // TODO: Implementa un static block para configuración
+  static {
+    // Este bloque se ejecuta cuando la clase se carga
+    this.VERSION = '1.0.0';
+    this.MAX_ITEMS = 1000;
+    this.SYSTEM_NAME = 'sistemas fintech'; // Cambia por tu dominio
+    console.log(`Sistema ${this.SYSTEM_NAME} v${this.VERSION} cargado`);
+  }
+
+  // TODO: Implementa métodos estáticos de utilidad
+  /**
+   * Valida si un ID tiene formato correcto
+   * @param {string} id - ID a validar
+   * @returns {boolean} Si es válido
+   */
+  static isValidId(id) {
+   return typeof id === 'string' && id.length > 0;
+  }
+
+  /**
+   * Genera un ID único
+   * @returns {string} ID único
+   */
+  static generateId() {
+    return crypto.randomUUID();
+  }
+
+  // ============================================
+  // MÉTODOS CRUD PARA ITEMS
+  // ============================================
+
+  /**
+   * Agrega un nuevo elemento al sistema
+   * @param {BaseItem} item - Elemento a agregar
+   * @returns {Object} Resultado de la operación
+   */
+  addItem(item) {
+    // TODO: Implementa la adición con validación
+    if (!(item instanceof BaseItem)) {
+      return { success: false, message: 'El item debe ser instancia de BaseItem' };
+    }
+   if (this.#items.length >= MainSystem.MAX_ITEMS) {
+     return { success: false, message: 'Límite de items alcanzado' };
+   }
+  this.#items.push(item);
+  return { success: true, message: 'Item agregado correctamente', item };
+  }
+
+  /**
+   * Elimina un elemento por su ID
+   * @param {string} id - ID del elemento a eliminar
+   * @returns {Object} Resultado de la operación
+   */
+  removeItem(id) {
+    // TODO: Implementa la eliminación
+    const index = this.#items.findIndex(item => item.id === id);
+    if (index === -1) {
+      return { success: false, message: 'Item no encontrado' };
+    }
+    const removed = this.#items.splice(index, 1)[0];
+  return { success: true, message: 'Item eliminado', item: removed };
+  }
+
+  /**
+   * Busca un elemento por su ID
+   * @param {string} id - ID del elemento
+   * @returns {BaseItem|null} Elemento encontrado o null
+   */
+  findItem(id) {
+    // TODO: Implementa la búsqueda
+  return this.#items.find(item => item.id === id) ?? null;
+  }
+
+  /**
+   * Retorna todos los elementos
+   * @returns {Array} Copia del array de elementos
+   */
+  getAllItems() {
+    // Retorna copia para evitar mutación directa
+   return [...this.#items];
+  }
+
+  // ============================================
+  // MÉTODOS DE BÚSQUEDA Y FILTRADO
+  // ============================================
+
+  /**
+   * Busca elementos por nombre
+   * @param {string} query - Texto a buscar
+   * @returns {Array} Elementos que coinciden
+   */
+  searchByName(query) {
+    // TODO: Implementa búsqueda case-insensitive
+   const searchTerm = query.toLowerCase();
+   return this.#items.filter(item =>
+      item.name.toLowerCase().includes(searchTerm)
+ );
+  }
+
+  /**
+   * Filtra elementos por tipo (clase)
+   * @param {string} type - Nombre de la clase
+   * @returns {Array} Elementos del tipo especificado
+   */
+  filterByType(type) {
+    // TODO: Implementa el filtro por tipo
+  return this.#items.filter(item => item.getType() === type);
+  }
+
+  /**
+   * Filtra elementos por estado activo
+   * @param {boolean} active - Estado a filtrar
+   * @returns {Array} Elementos con el estado especificado
+   */
+  filterByStatus(active) {
+    // TODO: Implementa el filtro por estado
+    return this.#items.filter(item => item.isActive === active);
+  }
+
+  // ============================================
+  // MÉTODOS DE ESTADÍSTICAS
+  // ============================================
+
+  /**
+   * Calcula estadísticas del sistema
+   * @returns {Object} Estadísticas
+   */
+  getStats() {
+    // TODO: Implementa el cálculo de estadísticas usando reduce
+    const total = this.#items.length;
+    const active = this.#items.filter(item => item.isActive).length;
+    const inactive = total - active;
+    //
+    // // Contar por tipo usando reduce
+    const byType = this.#items.reduce((acc, item) => {
+     const type = item.getType();
+   acc[type] = (acc[type] ?? 0) + 1;
+    return acc;
+   }, {});
+    //
+  return {
+  total,
+  active,
+  inactive,
+  byType,
+  users:this.#users.length
+   };
+}
+
+  // ============================================
+  // MÉTODOS PARA USUARIOS
+  // ============================================
+
+  /**
+   * Registra un nuevo usuario
+   * @param {Person} user - Usuario a registrar
+   */
+  addUser(user) {
+    // TODO: Implementa el registro de usuario
+    if (!(user instanceof Person)) {
+   return { success: false, message: 'Debe ser instancia de Person' };
+  }
+   this.#users.push(user);
+ return { success: true, message: 'Usuario registrado' };
+  }
+
+  /**
+   * Busca un usuario por email
+   * @param {string} email - Email del usuario
+   * @returns {Person|null} Usuario encontrado o null
+   */
+  findUserByEmail(email) {
+  return this.#users.find(user => user.email === email) ?? null;
+  }
+
+  getAllUsers() {
+  return [...this.#users];
+  }
+}
+
+// ============================================
+// TODO 6: INSTANCIA DEL SISTEMA Y DATOS DE PRUEBA
+// ============================================
+
+// Crea la instancia principal del sistema
+const system = new MainSystem();
+
+// TODO: Crea algunos elementos de prueba de diferentes tipos
+// EJEMPLO (Planetario):
+const banco = new Bank('Banco central', 'Bogota', 5.5);
+const prestamos = new Loan('prestamoos hipotecario', 'sucursal sur ', 20000, 8.5, 240);
+const cuenta = new Account ("cuenta de ahorros ", "sucursal norte", "789-012", 1000)
+const seguro = new Insurance("seguros de vida", "sucursal centro", "cobertura total", 150)
+system.addItem(banco);
+ system.addItem(prestamos); 
+ system.addItem(cuenta); 
+ system.addItem(seguro);
+
+// ============================================
+// TODO 7: REFERENCIAS AL DOM
+// ============================================
+
+// TODO: Obtén referencias a los elementos del DOM
+ const itemForm = document.getElementById('item-form');
+ const itemList = document.getElementById('item-list');
+ const statsContainer = document.getElementById('stats');
+ const filterType = document.getElementById('filter-type');
+ const filterStatus = document.getElementById('filter-status');
+ const searchInput = document.getElementById('search-input');
+
+// ============================================
+// TODO 8: FUNCIONES DE RENDERIZADO
+// ============================================
+
+// ============================================
+// TODO 8: FUNCIONES DE RENDERIZADO
+// ============================================
+
+/**
+ * Renderiza un elemento individual
+ * @param {BaseItem} item - Elemento a renderizar
+ * @returns {string} HTML del elemento
+ */
+const renderItem = item => {
+  const info = item.getInfo();
+  return `
+    <div class="item ${item.isActive ? '' : 'inactive'}" data-id="${item.id}">
+      <div class="item-header">
+        <h3>${item.name}</h3>
+        <span class="badge">${item.getType()}</span>
+      </div>
+      <div class="item-details">
+        <p>Ubicación: ${item.location}</p>
+        <p>Estado: ${item.isActive ? 'Activo' : 'Inactivo'}</p>
+      </div>
+      <div class="item-actions">
+        <button class="btn-toggle" data-id="${item.id}">
+          ${item.isActive ? 'Desactivar' : 'Activar'}
+        </button>
+        <button class="btn-delete" data-id="${item.id}">Eliminar</button>
+      </div>
+    </div>
+  `;
+};
+
+/**
+ * Renderiza la lista completa de elementos
+ * @param {Array} items - Array de elementos
+ */
+const renderItems = (items = []) => {
+  if (items.length === 0) {
+    itemList.innerHTML = '<p class="empty">📭 No hay elementos en el catálogo</p>';
+    return;
+  }
+  itemList.innerHTML = items.map(renderItem).join('');
+};
+
+/**
+ * Renderiza las estadísticas
+ * @param {Object} stats - Objeto de estadísticas
+ */
+const renderStats = stats => {
+  statsContainer.innerHTML = `
+    <div class="stat">Total: ${stats.total}</div>
+    <div class="stat">Activos: ${stats.active}</div>
+    <div class="stat">Inactivos: ${stats.inactive}</div>
+    <div class="stat">Usuarios: ${stats.users}</div>
+  `;
+
+  // Renderizado detallado por tipo
+  const details = Object.entries(stats.byType)
+    .map(([type, count]) => `<p>${type}: ${count}</p>`)
+    .join('');
+  document.getElementById('stats-details').innerHTML = details;
+};
+
+
+// ============================================
+// TODO 9: EVENT HANDLERS
+// ============================================
+
+/**
+ * Maneja el envío del formulario
+ */
+const handleFormSubmit = e => {
+  // TODO: Implementa la creación de nuevos elementos
+   e.preventDefault();
+  // Obtén valores del formulario
+  const type = document.getElementById('item-type').value;
+  const name = document.getElementById('item-name').value;
+  const location = document.getElementById('item-location').value;
+  let newItem;
+  // Crea instancia de la clase correcta según el tipo seleccionado
+  if (type === 'account') { 
+  const accountNumber = prompt("Número de cuenta:");
+  const balance = parseFloat(prompt("Saldo inicial:"));
+  newItem = new Account(name, location, accountNumber, balance); 
+ } else if (type === 'loan') {
+  const amount = parseFloat(prompt("Monto del préstamo:"));
+  const interestRate = parseFloat(prompt("Tasa de interés:"));
+  const termMonths = parseInt(prompt("Plazo en meses:"), 10);
+  newItem = new Loan(name, location, amount, interestRate, termMonths);
+  } else if (type === 'insurance') {
+  const coverage = prompt("Cobertura:");
+  const premium = parseFloat(prompt("Prima:")); 
+  newItem = new Insurance(name, location, coverage, premium);
+ }
+  // Agrega al sistema
+ if (newItem){
+   system.addItem(newItem);
+     renderItems(system.getAllItems()); 
+     renderStats(system.getStats());
+      itemForm.reset();
+}
+};
+/**
+ * Maneja cambios en los filtros
+ */
+const handleFilterChange = () => {
+  // TODO: Implementa el filtrado
+let filtered = system.getAllItems();
+  // Aplica filtros según los valores de los selectores
+  const typeValue = filterType.value;
+   if (typeValue !== 'all') {
+     filtered = filtered.filter(item => item.getType().toLowerCase() === typeValue);
+     }
+ const searchTerm = searchInput.value.toLowerCase(); 
+ if (searchTerm) {
+   filtered = filtered.filter(item => item.name.toLowerCase().includes(searchTerm));
+   } renderItems(filtered);
+};
+
+/**
+ * Maneja acciones en los elementos (toggle, delete)
+ */
+const handleItemAction = e => {
+  // TODO: Implementa usando event delegation
+  const target = e.target;
+  const itemId = target.dataset.id;
+   if (!itemId) return;
+  //
+ if (target.classList.contains('btn-toggle')) {
+   const item = system.findItem(itemId);
+   if (item.isActive) item.deactivate();
+   else item.activate();
+   }
+  //
+ if (target.classList.contains('btn-delete')) {
+   if (confirm('¿Eliminar este elemento?')) {
+     system.removeItem(itemId);
+     }
+   }
+  //
+ handleFilterChange();
+  renderStats(system.getStats());
+};
+
+// ============================================
+// TODO 10: EVENT LISTENERS
+// ============================================
+
+itemForm.addEventListener('submit', handleFormSubmit);
+filterType.addEventListener('change', handleFilterChange);
+filterStatus.addEventListener('change', handleFilterChange); 
+searchInput.addEventListener('input', handleFilterChange); 
+itemList.addEventListener('click', handleItemAction);
+
+// ============================================
+// TODO 11: INICIALIZACIÓN
+// ============================================
+
+/**
+ * Inicializa la aplicación
+ */
+const init = () => {
+  // TODO: Implementa la inicialización
+  renderItems(system.getAllItems());
+  renderStats(system.getStats());
+  console.log('✅ Sistema inicializado correctamente');
+};
+
+// Ejecutar cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', init);
+
+// ============================================
+// CHECKLIST DE VERIFICACIÓN
+// ============================================
+// Después de completar todos los TODOs, verifica:
+//
+// CLASES Y HERENCIA:
+// ✓ Clase base con campos privados
+// ✓ Mínimo 3 clases derivadas con extends
+// ✓ Uso correcto de super() en constructores
+// ✓ Método getInfo() implementado en cada clase derivada
+//
+// ENCAPSULACIÓN:
+// ✓ Todos los campos son privados (#)
+// ✓ Getters para acceso a propiedades
+// ✓ Setters con validación donde corresponda
+//
+// CARACTERÍSTICAS MODERNAS:
+// ✓ Static block en clase principal
+// ✓ Métodos estáticos de utilidad
+// ✓ Uso de crypto.randomUUID() para IDs
+//
+// CÓDIGO:
+// ✓ Comentarios en español
+// ✓ Nomenclatura técnica en inglés
+// ✓ Nombres de clases adaptados a mi dominio
+// ✓ Sin copiar implementación de otros compañeros

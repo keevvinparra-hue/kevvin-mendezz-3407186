@@ -24,10 +24,13 @@
 //   Observatorio: SESSION_DURATION = 90, TICKET_PRICE = 18_000
 
 // const EXAMPLE_CONSTANT = 0; // TODO: Reemplazar con tus constantes
+<<<<<<< HEAD
 const interes_anual = 0.15;
 const capital_inicial = 1_000_000;
 const limite_diario_de_transacciones = 10;
 const monto_maximo_por_transaccion = 10_000_000;
+=======
+>>>>>>> 2329ca21a93cc02a59fa8cd300a991b82dcdac71
 
 // ============================================
 // SECCIÓN 2: Operaciones aritméticas
@@ -45,6 +48,7 @@ console.log("=== Operaciones básicas ===");
 // console.log("Ingresos función:", totalRevenue);
 // const remainingSeats = 45 - attendees;
 // console.log("Asientos disponibles:", remainingSeats);
+<<<<<<< HEAD
 // INTERES ANUAL A MENSUAL
 const interes_mensual = interes_anual / 12;
 console.log("Interés mensual (%):", interes_mensual * 100, "%");
@@ -63,6 +67,9 @@ console.log("Monto final con interés compuesto en 3 años:", monto_final);
 const transacciones_realizadas = 12;
 const transacciones_excedidas = transacciones_realizadas - limite_diario_de_transacciones;
 console.log("Transacciones excedidas del límite diario:", transacciones_excedidas > 0 ? transacciones_excedidas : 0);
+=======
+
+>>>>>>> 2329ca21a93cc02a59fa8cd300a991b82dcdac71
 console.log("");
 
 // ============================================
@@ -81,6 +88,7 @@ console.log("=== Asignación compuesta ===");
 // console.log("Tras segundo item:", runningTotal);
 // runningTotal *= 0.90; // descuento del 10%
 // console.log("Con descuento:", runningTotal);
+<<<<<<< HEAD
 let balance = capital_inicial;
 console.log("Balance inicial:", balance);
 balance += interes_generado;   
@@ -91,6 +99,9 @@ balance *= 1.05;
 console.log("Balance después de aplicar interés compuesto:", balance);
 balance /= 2;
 console.log("Balance después de dividir entre 2:", balance);    
+=======
+
+>>>>>>> 2329ca21a93cc02a59fa8cd300a991b82dcdac71
 console.log("");
 
 // ============================================
@@ -107,11 +118,15 @@ console.log("=== Validaciones con === ===");
 // console.log("¿Entregado a tiempo?", isOnTime);
 // const hasFine = daysLate > 0;
 // console.log("¿Tiene multa?", hasFine);
+<<<<<<< HEAD
 const timeDelay = 8;
 const timeLimit = timeDelay === 0;
 console.log("¿Transacción a tiempo?", timeLimit);
 const hasPenalty = timeDelay > 0;
 console.log("¿Tiene penalización?", hasPenalty);
+=======
+
+>>>>>>> 2329ca21a93cc02a59fa8cd300a991b82dcdac71
 console.log("");
 
 // ============================================
@@ -127,6 +142,7 @@ console.log("=== Condiciones lógicas ===");
 // const purchaseAmount = 150_000;
 // const qualifiesForDiscount = isMember && purchaseAmount >= 100_000;
 // console.log("¿Descuento aplicable?", qualifiesForDiscount);
+<<<<<<< HEAD
 const isAccountActive = true;
 const hasSufficientBalance = balance >= 500_000;
 const canMakeTransaction = isAccountActive && hasSufficientBalance;
@@ -135,6 +151,9 @@ const isWeekend = false;
 const isHoliday = true;
 const isNonWorkingDay = isWeekend || isHoliday;
 console.log("¿Es un día no laborable?", isNonWorkingDay);
+=======
+
+>>>>>>> 2329ca21a93cc02a59fa8cd300a991b82dcdac71
 console.log("");
 
 // ============================================
@@ -144,6 +163,7 @@ console.log("=== Resumen ===");
 
 // TODO: Muestra un resumen con los valores más importantes
 // calculados en las secciones anteriores
+<<<<<<< HEAD
 console.log("Capital inicial:", capital_inicial);
 console.log("Interés anual (%):", interes_anual * 100, "%");
 console.log("Interés mensual (%):", interes_mensual * 100, "%");
@@ -164,4 +184,7 @@ console.log("¿Transacción a tiempo?", timeLimit);
 console.log("¿Tiene penalización?", hasPenalty);
 
 console.log("=== fin del resumen ===");
+=======
+
+>>>>>>> 2329ca21a93cc02a59fa8cd300a991b82dcdac71
 console.log("");

@@ -21,11 +21,16 @@
 // ============================================
 
 // TODO: Define el nombre de tu dominio
+<<<<<<< HEAD
 const DOMAIN_NAME = "FINPAGX";
+=======
+const DOMAIN_NAME = "Mi Dominio";
+>>>>>>> 2329ca21a93cc02a59fa8cd300a991b82dcdac71
 
 // TODO: Define el nombre de la entidad principal
 // Inclúyelo con espacios y mayúsculas/minúsculas
 // para poder aplicar transformaciones después
+<<<<<<< HEAD
 const rawEntityName = "Transacciones Financieras";
 
 // TODO: Define una categoría o tipo (string)
@@ -41,6 +46,23 @@ const entityDescription = "Este elemento representa las transacciones financiera
 
 // TODO: Define un dato numérico relevante (number)
 const mainValue = 3_000_000;// monto permitido de transacciones diarias
+=======
+const rawEntityName = "  nombre de la entidad  ";
+
+// TODO: Define una categoría o tipo (string)
+const entityCategory = "Categoría del elemento";
+
+// TODO: Define un código identificador (string)
+// Elige un prefijo coherente con tu dominio
+const entityCode = "COD-001";
+
+// TODO: Define una descripción corta (string)
+// Debe contener varias palabras para usar includes/slice
+const entityDescription = "Descripción interesante de la entidad del dominio asignado.";
+
+// TODO: Define un dato numérico relevante (number)
+const mainValue = 0;
+>>>>>>> 2329ca21a93cc02a59fa8cd300a991b82dcdac71
 
 // TODO: Define un estado booleano
 const isActive = true;
@@ -52,6 +74,7 @@ const isActive = true;
 
 // TODO: Limpia el nombre con trim()
 const entityName = rawEntityName.trim();
+<<<<<<< HEAD
 console.log(entityName);
 // TODO: Obtén el nombre en mayúsculas para el encabezado
 const entityNameUpper = entityName.toUpperCase();
@@ -63,6 +86,18 @@ console.log(entityNameLower);
 // para usarlas como prefijo de referencia
 const codePrefix = entityCode.slice(0, 3);
 console.log(codePrefix);
+=======
+
+// TODO: Obtén el nombre en mayúsculas para el encabezado
+const entityNameUpper = entityName.toUpperCase();
+
+// TODO: Obtén el nombre en minúsculas para el código
+const entityNameLower = entityName.toLowerCase();
+
+// TODO: Extrae las primeras letras del código con slice()
+// para usarlas como prefijo de referencia
+const codePrefix = entityCode.slice(0, 3);
+>>>>>>> 2329ca21a93cc02a59fa8cd300a991b82dcdac71
 
 
 // ============================================

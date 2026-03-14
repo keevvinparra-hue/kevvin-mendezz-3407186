@@ -54,6 +54,10 @@ const bank = {
    name: 'mastermoney',
    description: 'Admininistacion de dinero/transferencias',
    identifier: 'SANKAMEN', // código, id, número, etc.
+<<<<<<< HEAD
+=======
+   avatar: "/3407186-kevin-mendez/bootcamp/week-01/3-proyecto/starter/avatar.jpg",
+>>>>>>> 2329ca21a93cc02a59fa8cd300a991b82dcdac71
 
   // Propiedad de contacto o ubicación (si aplica)
    contact: {

@@ -724,9 +724,12 @@ system.addItem(banco);
  const filterStatus = document.getElementById('filter-status');
  const searchInput = document.getElementById('search-input');
 
+<<<<<<< HEAD
 // ============================================
 // TODO 8: FUNCIONES DE RENDERIZADO
 // ============================================
+=======
+>>>>>>> 2329ca21a93cc02a59fa8cd300a991b82dcdac71
 
 // ============================================
 // TODO 8: FUNCIONES DE RENDERIZADO

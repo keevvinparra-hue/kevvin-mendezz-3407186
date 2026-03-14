@@ -79,8 +79,12 @@ class User {
   // Getter simple - combina propiedades
   get fullName() {
     return `${this.firstName} ${this.lastName}`;
+<<<<<<< HEAD
   }
 
+=======
+    
+>>>>>>> 2329ca21a93cc02a59fa8cd300a991b82dcdac71
   // Getter calculado - valor derivado
   get age() {
     return new Date().getFullYear() - this.birthYear;
