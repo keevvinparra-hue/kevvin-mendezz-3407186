@@ -57,7 +57,7 @@ const isItemAvailable = true; // reemplaza con algo de tu dominio
 //   Planetario → currentGuide = null
 //   Acuario    → feedingSchedule = null
 //   Museo      → currentOwner = null
-const pendingInteresRate = null; // cambia el nombre a algo de tu dominio
+const pendingInterestRate = null; // cambia el nombre a algo de tu dominio
 
 
 // ============================================
@@ -121,10 +121,9 @@ console.log("--- Valor nulo ---");
 
 // TODO: Muestra el valor null y verifica con === null
 // Ejemplo:
-console.log("Valor pendiente:", pendingValue);
-console.log("typeof null:", typeof pendingValue);    // "object" ← bug histórico
-console.log("¿Es null?:", pendingValue === null);    // true
-console.log("Valor pendiente:", pendingValue);
+console.log("Valor pendiente:", pendingInterestRate);
+console.log("typeof null:", typeof pendingInterestRate);    
+console.log("¿Es null?:", pendingInterestRate === null);
 // TODO: Agrega typeof y la verificación === null
 console.log("");
 
